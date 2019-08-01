@@ -1,0 +1,7 @@
+E:\C#\Basics\ScrapeChan\ScrapeChan\bin\Debug\ScrapeChan.exe.config
+E:\C#\Basics\ScrapeChan\ScrapeChan\bin\Debug\ScrapeChan.exe
+E:\C#\Basics\ScrapeChan\ScrapeChan\bin\Debug\ScrapeChan.pdb
+E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.csprojAssemblyReference.cache
+E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.csproj.CoreCompileInputs.cache
+E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.exe
+E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.pdb
