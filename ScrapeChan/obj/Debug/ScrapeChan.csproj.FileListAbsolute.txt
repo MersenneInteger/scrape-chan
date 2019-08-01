@@ -5,3 +5,5 @@ E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.csprojAssemblyReference.
 E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.csproj.CoreCompileInputs.cache
 E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.exe
 E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.pdb
+E:\C#\Basics\ScrapeChan\ScrapeChan\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\C#\Basics\ScrapeChan\ScrapeChan\obj\Debug\ScrapeChan.csproj.CopyComplete
