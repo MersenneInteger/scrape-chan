@@ -6,6 +6,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace ScrapeChan
 {
@@ -13,12 +14,16 @@ namespace ScrapeChan
     {
         static void Main(string[] args)
         {
-            //<a class="fileThumb" href=""
+
             Scraper scraper = new Scraper();
-            string url = "https://is2.4chan.org/wg/1562245792289.png";
+            string url, webPage;
             string savePath = string.Empty;
+            int i = 0;
 
             savePath = CreateDirectoryToSavePictures();
+
+            Console.WriteLine("Enter 4chan url: ");
+            url = Console.ReadLine() ?? string.Empty;
 
             if (url.Contains("https"))
                 url.Replace("https", "http");
@@ -27,7 +32,19 @@ namespace ScrapeChan
             {
                 try
                 {
-                    client.DownloadFile(new Uri(url), $"{savePath}\\image35.png");
+                    client.Headers.Add("user-agent", "Mozilla/5.0");
+                    webPage = client.DownloadString(url);
+
+                    List<string> ImageLinks = scraper.Scrape(webPage);
+                    scraper.PrependHTTP();
+                    Console.WriteLine("prepending done");
+                    foreach (var image in ImageLinks)
+                    {
+                        client.DownloadFile(new Uri(image), $"{savePath}\\image{++i}.png");
+                        Console.Write("*");
+                    }
+
+                    Console.WriteLine("\ndone...");
                 }
                 catch (Exception e)
                 {
