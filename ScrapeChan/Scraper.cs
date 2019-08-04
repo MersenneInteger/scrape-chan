@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace ScrapeChan
@@ -9,7 +8,8 @@ namespace ScrapeChan
     public class Scraper
     {
         private List<string> ImageLinks;
-        private bool is4chan;
+        private enum ChanType { _4chan, _lainchan};
+        private ChanType chanType;
 
         public Scraper()
         {
@@ -26,10 +26,12 @@ namespace ScrapeChan
             MatchCollection matches;
             GetChanType(url);
 
-            if (is4chan)
+            if (chanType == ChanType._4chan)
                 matches = Regex.Matches(webPage, @"<a class=\""fileThumb\"" href=\""(.*?)\""");
-            else
+            else if (chanType == ChanType._lainchan)
                 matches = Regex.Matches(webPage, @"<div class=\""file\""><p class=\""fileinfo\"">File: <a href=\""(.*?)\"" target=\""_blank\"">");
+            else
+                matches = Regex.Matches(webPage, @"^.*\.(jpg|png|jpeg|gif)");
 
             foreach (Match match in matches)
                 ImageLinks.Add(match.Groups[1].Value);
@@ -46,13 +48,13 @@ namespace ScrapeChan
         /// </summary>
         private void PrependHTTP()
         {
-            if(is4chan)
+            if(chanType == ChanType._4chan)
             {
                 for (var i = 0; i < ImageLinks.Count; i++)
                     if (!ImageLinks[i].Contains("http:"))
                         ImageLinks[i] = "http:" + ImageLinks[i];
             }
-            else
+            else if(chanType == ChanType._lainchan)
             {
                 for (var i = 0; i < ImageLinks.Count; i++)
                     if (!ImageLinks[i].Contains("http:"))
@@ -73,18 +75,6 @@ namespace ScrapeChan
             if (!Directory.Exists(savePath))
                 Directory.CreateDirectory(savePath);
 
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-
-            //}
-            //else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            //{
-            //    //
-            //}
-            //else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            //{
-            //    //
-            //}
             return savePath;
         }
 
@@ -92,12 +82,13 @@ namespace ScrapeChan
         /// determine whether lainchan or 4chan is being scraped
         /// </summary>
         /// <param name="url">Url of website to be scraped</param>
-        private void GetChanType(string url)
+        private ChanType GetChanType(string url)
         {
             if (url.Contains("4chan"))
-                is4chan = true;
+                chanType = ChanType._4chan;
             else if (url.Contains("lainchan"))
-                is4chan = false;
+                chanType = ChanType._lainchan;
+            return chanType;
         }
     }
 }

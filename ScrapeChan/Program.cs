@@ -18,7 +18,7 @@ namespace ScrapeChan
 
             savePath = scraper.CreateDirectoryToSavePictures();
 
-            Console.WriteLine("Enter 4chan url: ");
+            Console.WriteLine("Enter chan url: ");
             url = Console.ReadLine() ?? string.Empty;
 
             if (url.Contains("https"))
@@ -29,8 +29,6 @@ namespace ScrapeChan
                 try
                 {
                     client.Headers.Add("user-agent", "Mozilla/5.0");
-
-                    Console.WriteLine(url);
                     webPage = client.DownloadString(url);
 
                     List<string> ImageLinks = scraper.Scrape(webPage, url);
