@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-
+using System.Web;
+using System.Text;
 
 namespace ScrapeChan
 {
@@ -28,10 +29,11 @@ namespace ScrapeChan
                 try
                 {
                     client.Headers.Add("user-agent", "Mozilla/5.0");
+
+                    Console.WriteLine(url);
                     webPage = client.DownloadString(url);
 
-                    List<string> ImageLinks = scraper.Scrape(webPage);
-                    scraper.PrependHTTP();
+                    List<string> ImageLinks = scraper.Scrape(webPage, url);
 
                     foreach (var image in ImageLinks)
                     {
